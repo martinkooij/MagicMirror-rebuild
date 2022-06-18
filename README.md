@@ -11,6 +11,4 @@ This version is a special coding for MagicMirror²
 
 # Available commmand
 
-**same command linked**
-
 `.bin/MagicMirror-rebuild`
