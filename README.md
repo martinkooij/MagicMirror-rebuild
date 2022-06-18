@@ -9,9 +9,8 @@ This version is a special coding for MagicMirror²
 # Installation
 `npm install magicmirror-rebuild --save`
 
-# Available commmands
+# Available commmand
 
-**same commands linked**
+**same command linked**
 
-`.bin/electron-rebuild`<br>
 `.bin/MagicMirror-rebuild`
