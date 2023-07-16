@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.lookupModuleState = exports.cacheModuleState = void 0;
 const crypto = require("crypto");
 const fs = require("fs-extra");
@@ -39,8 +40,9 @@ const writeSnapshot = async (diff, dir) => {
         }
     }
 };
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const serialize = (snap) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const jsonReady = {};
     for (const key in snap) {
         if (snap[key] instanceof Snap) {
@@ -57,7 +59,7 @@ const serialize = (snap) => {
     }
     return jsonReady;
 };
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const unserialize = (jsonReady) => {
     const snap = {};
     for (const key in jsonReady) {
@@ -90,3 +92,4 @@ const lookupModuleState = async (cachePath, key) => {
     return false;
 };
 exports.lookupModuleState = lookupModuleState;
+//# sourceMappingURL=cache.js.map
