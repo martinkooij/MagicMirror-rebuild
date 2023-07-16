@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 "use strict";
-require("colors");
+Object.defineProperty(exports, "__esModule", { value: true });
+require("@colors/colors");
 const fs = require("fs-extra");
 const path = require("path");
 const ora = require("ora");
@@ -40,23 +41,25 @@ const yargs = argParser
     .describe('prebuild-tag-prefix', 'GitHub tag prefix passed to prebuild-install. Default is "v"')
     .describe('force-abi', 'Override the ABI version for the version of Electron you are targeting.  Only use when targeting Nightly releases.')
     .describe('use-electron-clang', 'Use the clang executable that Electron used when building its binary. This will guarantee compiler compatibility')
-    .epilog('@bugsounet Copyright 2022');
+    .epilog('@bugsounet Copyright 2023');
 const argv = yargs.argv;
 if (argv.h) {
     yargs.showHelp();
     process.exit(0);
 }
 if (process.argv.length === 3 && process.argv[2] === '--version') {
+    /* eslint-disable @typescript-eslint/no-var-requires */
     try {
         console.log('MagicMirror Rebuild Version:', require(path.resolve(__dirname, '../../package.json')).version);
     }
     catch (err) {
         console.log('MagicMirror Rebuild Version:', require(path.resolve(__dirname, '../package.json')).version);
     }
+    /* eslint-enable @typescript-eslint/no-var-requires */
     process.exit(0);
 }
 const handler = (err) => {
-    console.error('\nAn unhandled error occurred inside electron-rebuild'.red);
+    console.error('\nAn unhandled error occurred inside MagicMirror-rebuild'.red);
     console.error(`${err.message}\n\n${err.stack}`.red);
     process.exit(-1);
 };
@@ -70,12 +73,12 @@ process.on('unhandledRejection', handler);
         try {
             if (!electronModulePath)
                 throw new Error('Prebuilt electron module not found');
-
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
             const pkgJson = require(path.join(electronModulePath, 'package.json'));
             electronModuleVersion = pkgJson.version;
         }
         catch (e) {
-            throw new Error(`Unable to find electron's version number of MagicMirror, either install it or specify an explicit version`);
+            throw new Error(`Unable to find electron's version number, either install it or specify an explicit version`);
         }
     }
     let rootDirectory = argv.m;
@@ -100,16 +103,16 @@ process.on('unhandledRejection', handler);
     }
     let modulesDone = 0;
     let moduleTotal = 0;
-    const rebuildSpinner = ora('Searching dependency tree').start();
+    const rebuildSpinner = ora('Searching dependency tree\n').start();
     let lastModuleName;
     const redraw = (moduleName) => {
         if (moduleName)
             lastModuleName = moduleName;
         if (argv.p) {
-            rebuildSpinner.text = `MagicMirror Building modules: ${modulesDone}/${moduleTotal}`;
+            rebuildSpinner.text = `MagicMirror Building modules: ${modulesDone}/${moduleTotal}\n`;
         }
         else {
-            rebuildSpinner.text = `MagicMirror Building module: ${lastModuleName}, Completed: ${modulesDone}`;
+            rebuildSpinner.text = `MagicMirror Building module: ${lastModuleName}, Completed: ${modulesDone}\n`;
         }
     };
     const rebuilder = (0, rebuild_1.rebuild)({
@@ -141,10 +144,11 @@ process.on('unhandledRejection', handler);
         await rebuilder;
     }
     catch (err) {
-        rebuildSpinner.text = 'MagicMirror Rebuild Failed';
+        rebuildSpinner.text = 'MagicMirror Rebuild Failed`n';
         rebuildSpinner.fail();
         throw err;
     }
-    rebuildSpinner.text = 'MagicMirror Rebuild Complete';
+    rebuildSpinner.text = 'MagicMirror Rebuild Complete\n';
     rebuildSpinner.succeed();
 })();
+//# sourceMappingURL=cli.js.map

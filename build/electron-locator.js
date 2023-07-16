@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.locateElectronModule = void 0;
 const fs = require("fs-extra");
 const path = require("path");
@@ -27,3 +28,4 @@ async function locateElectronModule(projectRootPath) {
     return locateModuleByRequire();
 }
 exports.locateElectronModule = locateElectronModule;
+//# sourceMappingURL=electron-locator.js.map

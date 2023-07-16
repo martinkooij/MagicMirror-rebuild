@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.rebuildNativeModules = exports.rebuild = exports.createOptions = exports.Rebuilder = void 0;
 const crypto = require("crypto");
 const debug = require("debug");
@@ -10,7 +11,7 @@ const path = require("path");
 const read_package_json_1 = require("./read-package-json");
 const cache_1 = require("./cache");
 const search_module_1 = require("./search-module");
-const d = debug('electron-rebuild');
+const d = debug('MagicMirror-rebuild');
 const defaultMode = 'sequential';
 const defaultTypes = ['prod', 'optional'];
 // Update this number if you change the caching logic to ensure no bad cache hits
@@ -82,7 +83,7 @@ class Rebuilder {
         this.prebuildTagPrefix = options.prebuildTagPrefix || 'v';
         this.msvsVersion = process.env.GYP_MSVS_VERSION;
         if (this.useCache && this.force) {
-            console.warn('[WARNING]: Electron Rebuild has force enabled and cache enabled, force take precedence and the cache will not be used.');
+            console.warn('[WARNING]: MagicMirror-rebuild has force enabled and cache enabled, force take precedence and the cache will not be used.');
             this.useCache = false;
         }
         this.projectRootPath = options.projectRootPath;
@@ -148,6 +149,7 @@ class Rebuilder {
         if (!(await fs.pathExists(path.resolve(modulePath, 'binding.gyp')))) {
             return;
         }
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const { ModuleRebuilder } = require('./module-rebuilder');
         const moduleRebuilder = new ModuleRebuilder(this, modulePath);
         this.lifecycle.emit('module-found', path.basename(modulePath));
@@ -243,6 +245,7 @@ class Rebuilder {
 }
 exports.Rebuilder = Rebuilder;
 function rebuildWithOptions(options) {
+    // eslint-disable-next-line prefer-rest-params
     d('rebuilding with args:', arguments);
     const lifecycle = new events_1.EventEmitter();
     const rebuilderOptions = { ...options, lifecycle };
@@ -266,12 +269,13 @@ function createOptions(buildPath, electronVersion, arch, extraModules, force, he
     };
 }
 exports.createOptions = createOptions;
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function doRebuild(options, ...args) {
     if (typeof options === 'object') {
         return rebuildWithOptions(options);
     }
-    console.warn('You are using the deprecated electron-rebuild API, please switch to using the options object instead');
+    console.warn('You are using the deprecated MagicMirror-rebuild API, please switch to using the options object instead');
+    // eslint-disable-next-line @typescript-eslint/ban-types
     return rebuildWithOptions(createOptions(options, ...args));
 }
 exports.rebuild = doRebuild;
@@ -284,3 +288,4 @@ function rebuildNativeModules(electronVersion, modulePath, whichModule = '', _he
     return (0, exports.rebuild)(modulePath, electronVersion, arch, whichModule.split(','));
 }
 exports.rebuildNativeModules = rebuildNativeModules;
+//# sourceMappingURL=rebuild.js.map

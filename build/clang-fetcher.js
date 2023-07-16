@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.downloadClangVersion = exports.getClangEnvironmentVars = void 0;
 const cp = require("child_process");
 const debug = require("debug");
@@ -8,13 +9,13 @@ const path = require("path");
 const tar = require("tar");
 const zlib = require("zlib");
 const constants_1 = require("./constants");
-const d = debug('electron-rebuild');
+const d = debug('MagicMirror-rebuild');
 function sleep(n) {
     return new Promise(r => setTimeout(r, n));
 }
 async function fetch(url, responseType, retries = 3) {
     if (retries === 0)
-        throw new Error('Failed to fetch a clang resource, run with DEBUG=electron-rebuild for more information');
+        throw new Error('Failed to fetch a clang resource, run with DEBUG=MagicMirror-rebuild for more information');
     d('downloading:', url);
     try {
         const response = await got_1.default.get(url, {
@@ -127,3 +128,4 @@ async function downloadClangVersion(electronVersion) {
     d('cleaning up clang tar file');
 }
 exports.downloadClangVersion = downloadClangVersion;
+//# sourceMappingURL=clang-fetcher.js.map

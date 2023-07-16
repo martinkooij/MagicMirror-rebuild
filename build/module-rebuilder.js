@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModuleRebuilder = exports.BuildType = void 0;
 const debug = require("debug");
 const detectLibc = require("detect-libc");
@@ -11,7 +12,7 @@ const read_package_json_1 = require("./read-package-json");
 const cross_spawn_promise_1 = require("@malept/cross-spawn-promise");
 const constants_1 = require("./constants");
 const clang_fetcher_1 = require("./clang-fetcher");
-const d = debug('electron-rebuild');
+const d = debug('MagicMirror-rebuild');
 const locateBinary = async (basePath, suffix) => {
     let parentPath = basePath;
     let testPath;
@@ -68,6 +69,7 @@ class ModuleRebuilder {
             `--arch=${this.rebuilder.arch}`,
             `--dist-url=${this.rebuilder.headerURL}`,
             '--build-from-source',
+            '--silent',
             `--devdir="${constants_1.ELECTRON_GYP_DIR}"`
         ];
         if (process.env.DEBUG) {
@@ -267,3 +269,4 @@ class ModuleRebuilder {
     }
 }
 exports.ModuleRebuilder = ModuleRebuilder;
+//# sourceMappingURL=module-rebuilder.js.map
