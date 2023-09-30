@@ -4,7 +4,6 @@ exports.downloadClangVersion = exports.getClangEnvironmentVars = void 0;
 const cp = require("child_process");
 const debug = require("debug");
 const fs = require("fs-extra");
-const got_1 = require("got");
 const path = require("path");
 const tar = require("tar");
 const zlib = require("zlib");
@@ -18,6 +17,13 @@ async function fetch(url, responseType, retries = 3) {
         throw new Error('Failed to fetch a clang resource, run with DEBUG=MagicMirror-rebuild for more information');
     d('downloading:', url);
     try {
+        /** load got **/
+        async function loadGot() {
+          const loaded = await import("got")
+          return loaded.default
+        } 
+        const got_1  = await loadGot()
+
         const response = await got_1.default.get(url, {
             responseType,
         });
