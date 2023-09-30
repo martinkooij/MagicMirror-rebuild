@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("@colors/colors");
 const fs = require("fs-extra");
 const path = require("path");
-const ora = require("ora");
 const argParser = require("yargs");
 const rebuild_1 = require("./rebuild");
 const search_module_1 = require("./search-module");
@@ -66,6 +65,13 @@ const handler = (err) => {
 process.on('uncaughtException', handler);
 process.on('unhandledRejection', handler);
 (async () => {
+    /** load ora **/
+    async function loadOra() {
+      const loaded = await import("ora")
+      return loaded.default
+    }
+    const ora  = await loadOra()
+    
     const projectRootPath = await (0, search_module_1.getProjectRootPath)(process.cwd());
     const electronModulePath = argv.e ? path.resolve(process.cwd(), argv.e) : await (0, electron_locator_1.locateElectronModule)(projectRootPath);
     let electronModuleVersion = argv.v;
