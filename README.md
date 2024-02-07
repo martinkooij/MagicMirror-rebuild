@@ -11,4 +11,4 @@ This version is a special coding for MagicMirror²
 
 # Available commmand
 
-`.bin/MagicMirror-rebuild`
+`./node_modules/.bin/MagicMirror-rebuild`
