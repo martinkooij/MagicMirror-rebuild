@@ -16,7 +16,7 @@ This version is a special coding for MagicMirror²
 # Encountered steps 
 When rebuilding magic Mirror on Pi4B, Debian Bullseye in jan 2024, I went through the following steps
 
-* Supporting software*
+*Supporting software*
 1. Install nvm and then install node v20
 2. Download and install magicMirror as per documentation, Go to MagicMirror directory
 3. do an `npm install fetch@v2 digest@v2`, needed for older modules using these dependencies
@@ -58,6 +58,6 @@ For the record only:
 - serialport electron troubles (solved by MagicMirror-rebuild as above)
 - Serialport version troubles, old constructor not valid anymore, updated the js components using serial port
 - Python syntax troubles. Upgraded python scripts to python 3 (print statement, vs print function). 
-- ics format calendar handling changed in new MagicMirror, bumped my calender to agree with default jan 2024 version. Should be a proper fork with rebasing at some time. 
+- ics format calendar handling changed in new MagicMirror, bumped my calender to agree with default jan 2024 version. Should be a proper fork with rebasing at some time. Favicons changed names. Both default (calender-alt) and selected (calender-check-o) didn't work anymore. I now selected "calender-check" icon. That works, undocumented: you can change the color of the icon by adding `color:` in the config of the calendar.  
 - google api key lost its connection due to an IP change of my Internetprovider. 
 
