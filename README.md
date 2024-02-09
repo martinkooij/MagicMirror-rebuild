@@ -46,10 +46,26 @@ dtoverlay=disable-bt
 dtoverlay=vc4-fkms-v3d
 max_framebuffers=2
 ```
+*SD Card protection* 
+1. Installed log2ram (shrunk existing /var/log files first)
+2. Settings in  /etc/log2ram.conf
+```
+# Bigger size, Magic Mirror can spew quite some logs when debugging
+SIZE=100M
+MAIL=false
+PATH_DISK="/var/log;/home/pi/.pm2/logs"
+```
+3. Changed (from default 1x per day to 4 times per day log on SD card) with `systemctl edit log2ram-daily.timer`
+```
+[Timer]
+# Empty the default one
+OnCalendar=
+# Change to every 6th hours (4x per day) [[MK]]
+OnCalendar=*-*-* */6:00:00
+```
 
 *Todo's* 
-1. Install log2ram for reducing SD card interaction
-2. Firewall to protect against SSH attacks
+1. Firewall to protect against SSH attacks (now closed SSH 22 via Home Router. Too many attacks)
 
 *One time shit (upgrade troubles)*
 For the record only:
