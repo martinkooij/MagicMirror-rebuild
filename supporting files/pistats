@@ -1,0 +1,12 @@
+#! /bin/bash
+echo -n 'TEMP:    '
+vcgencmd measure_temp
+echo -n 'LOAD:    '
+cat /proc/loadavg | awk '{print $1*100 "%"}'
+echo -n 'MEMFREE: ' 
+free | awk '/^Mem:/ {print $4*100/$2 "%"}'
+echo -n 'UPTIME:  '
+awk '{printf("%dD:%02dH:%02dm:%02ds\n",($1/60/60/24),($1/60/60%24),($1/60%60),($1%60))}' /proc/uptime
+echo -n 'FREQ     '
+vcgencmd measure_clock arm | awk -F"=" '{print $2/1000000 "MHz"}'
+
